@@ -1,65 +1,84 @@
-import matplotlib.pyplot as plt
+# Title: Numeric Integration of Two Curves Area - Python Implementation
+# Purpose: To find the area between two curves
+
+# Library Imports
 import numpy as np
+from scipy.integrate import quad
+from scipy.interpolate import interp1d
+import matplotlib.pyplot as plt
+from sympy import symbols, sympify
 
-class f:
-    x = 0   # kuadrat
-    y = 0   # linear
-    z = 0   # konstanta
+# Function Definitions
+## Get input from user and return a function
+def getInput(var):
+    if var == 0: return 0
+    try:
+        func = lambda x: eval(var.replace('^', '**'))
+        return func
+    except (SyntaxError, NameError):
+        print("Invalid function syntax. Please try again.")
 
-class g:
-    x = 0   # kuadrat
-    y = 0   # linear
-    z = 0   # konstanta
+## Evaluate an expression with a given value for x
+def evaluate_expression(expression, x_value):
+    x = symbols('x')
+    try:
+        res = sympify(expression).subs(x, x_value)
+        return float(res) if res.is_real else np.nan
+    except Exception as e:
+        print(f"Error evaluating expression: {e}")
+        return np.nan
 
-def scanstr(string):
-    x = string
-    i = 0
-    while i < len(x):
-        if x[i] == 'x':
-            if x[i+1] == '^' and x[i+2] == '2':
-                f.x += 1
-                i += 3
-            else:
-                f.y += 1
-                i += 1
-        elif x[i].isdigit():
-            while x[i].isdigit():
-                f.x = (f.x * 10) + int(x[i])
-                i += 1
-            if x[i] == 'x':
-                if x[i+1] == '^' and x[i+2] == '2':
-                    f.x += 1
-                    i += 3
-                else:
-                    f.y += 1
-                    i += 1
-            
-        elif x[i] == '+' or x[i] == '-' or x[i] == '*' or x[i] == '/':
-            i += 1
-        else:
-            print("Invalid character")
-            break
-        i += 1
+## Find the area between two curves
+def findArea(f, L, U):
+    area = quad(lambda x: f(x), min(L), max(U))[0]
+    print(f"Area between curves: {area}")
+    return area
 
-def integrate(argument):
-    x = argument()
+## Plot the two curves and the area between them
+def plot_equations(h, f, g, limL, limU, L, U):
+    x = symbols('x')
+    Lx = np.linspace(limL-5, max(L), 100)
+    Ux = np.linspace(min(U), limU+5, 100)
+    xLim  = np.linspace(max(L), min(U), 100)
+    xVal  = np.linspace(limL - 5, limU + 5, 100)
+    yVal1 = [evaluate_expression(f, x) for x in xVal]
+    yVal2 = [evaluate_expression(g, x) for x in xVal]
 
-# Example usage:
-    
-input
-# Generate x values
-x = np.linspace(-10, 10, 100)
+    area = findArea(h, L, U)
 
-# Evaluate the function for each x value
-y1 = 2*x
-y2 = x**2 + 2*x + 1
+    if min(yVal1) <= min(yVal2): min_y = min(yVal1)
+    else: min_y = min(yVal2)
+    if max(yVal1) >= max(yVal2): max_y = max(yVal1)
+    else: max_y = max(yVal2)
 
-# Plot the graph
-plt.plot(x, y1)
-plt.plot(x, y2)
-plt.xlabel('x')
-plt.ylabel('f(x)')
-plt.title('Graph of f(x)')
-plt.grid(True)
-plt.show()
+    plt.plot(xVal, yVal1, label=f'f(x) = {f.replace("**", "^").replace("*", "").replace("  ", " ")}')
+    plt.plot(xVal, yVal2, label=f'g(x) = {g.replace("**", "^").replace("*", "").replace("  ", " ")}')
 
+    plt.fill_between(xVal, yVal1, yVal2, color='gray', alpha=0.3, label='Area between curves')
+    plt.fill_between(Lx, min_y, max_y, color='white')
+    plt.fill_between(Ux, min_y, max_y, color='white')
+
+    plt.axvline(min(L), color='black', linestyle='--', label='limits')
+    plt.axvline(max(U), color='black', linestyle='--')
+
+    plt.annotate(f'Area between curves: {area}', xy=(0, 1.03), xycoords='axes fraction')
+    plt.axhline(0, color='black', linewidth=0.5)
+    plt.axvline(0, color='black', linewidth=0.5)
+    plt.legend()
+    plt.grid()
+    plt.show()
+
+# Main Function
+equat1 = input("Input first equation  : ")
+equat2 = input("Input second equation : ")
+Llimit = float(input("Input lower limit     : "))
+Ulimit = float(input("Input upper limit     : "))
+
+equals = lambda x: abs(getInput(equat1)(x) - getInput(equat2)(x))
+L = [Llimit]
+U = [Ulimit]
+
+if Llimit >= 5: Llimit = 5
+if Ulimit <= -5: Ulimit = -5
+
+plot_equations(equals, equat1, equat2, Llimit, Ulimit, L, U)
