@@ -4,7 +4,6 @@
 # Library Imports
 import numpy as np
 from scipy.integrate import quad
-from scipy.interpolate import interp1d
 import matplotlib.pyplot as plt
 from sympy import symbols, sympify
 
