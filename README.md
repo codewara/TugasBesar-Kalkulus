@@ -33,4 +33,4 @@ Datuk Daneswara Raditya Samsura
 Hafsah Hamidah
 
 ## Lisensi
-[MIT License](https://github.com/codewara/TugasBesar-Kalkulus/blob/main/LICENSE)
+[MIT License](https://github.com/codewara/TugasBesar-Kalkulus?tab=MIT-1-ov-file)
