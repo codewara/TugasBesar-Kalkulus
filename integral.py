@@ -35,10 +35,9 @@ def findArea(f, L, U):
 
 ## Plot the two curves and the area between them
 def plot_equations(h, f, g, limL, limU, L, U):
-    x = symbols('x')
+    x  = symbols('x')
     Lx = np.linspace(limL-5, max(L), 100)
     Ux = np.linspace(min(U), limU+5, 100)
-    xLim  = np.linspace(max(L), min(U), 100)
     xVal  = np.linspace(limL - 5, limU + 5, 100)
     yVal1 = [evaluate_expression(f, x) for x in xVal]
     yVal2 = [evaluate_expression(g, x) for x in xVal]
