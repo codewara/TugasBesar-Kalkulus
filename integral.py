@@ -10,7 +10,6 @@ from sympy import symbols, sympify
 # Function Definitions
 ## Get input from user and return a function
 def getInput(var):
-    if var == 0: return 0
     try:
         func = lambda x: eval(var.replace('^', '**'))
         return func
