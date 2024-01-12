@@ -29,7 +29,7 @@ def evaluate_expression(expression, x_value):
 
 ## Find the area between two curves
 def findArea(f, L, U):
-    area = quad(lambda x: f(x), min(L), max(U))[0]
+    area = abs(quad(lambda x: f(x), min(L), max(U))[0])
     print(f"Area between curves: {area}")
     return area
 
@@ -73,7 +73,7 @@ equat2 = input("Input second equation : ")
 Llimit = float(input("Input lower limit     : "))
 Ulimit = float(input("Input upper limit     : "))
 
-equals = lambda x: abs(getInput(equat1)(x) - getInput(equat2)(x))
+equals = lambda x: getInput(equat1)(x) - getInput(equat2)(x)
 L = [Llimit]
 U = [Ulimit]
 
