@@ -29,7 +29,7 @@ def evaluate_expression(expression, x_value):
 
 ## Find the area between two curves
 def findArea(f, L, U):
-    area = abs(quad(lambda x: f(x), min(L), max(U))[0])
+    area = round(abs(quad(lambda x: f(x), min(L), max(U))[0]))
     print(f"Area between curves: {area}")
     return area
 
