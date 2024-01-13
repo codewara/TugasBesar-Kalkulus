@@ -16,10 +16,10 @@ Program ini dikembangkan sebagai bagian dari Tugas Besar Kalkulus untuk menghitu
 
 ## Contoh Penggunaan
 ```
-Input first equation  : x**2
-Input second equation : x
-Input lower limit     : 0
-Input upper limit     : 2
+Input first equation  : 2*x^2 - 4*x + 10
+Input second equation : 2*x + 10
+Input lower limit     : -5
+Input upper limit     : 10
 ```
 ## Dependencies
 - Python 3.10
