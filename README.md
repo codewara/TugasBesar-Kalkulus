@@ -29,8 +29,8 @@ Input upper limit     : 2
 - SymPy
 
 ## Kontributor
-Datuk Daneswara Raditya Samsura
-Hafsah Hamidah
+- Datuk Daneswara Raditya Samsura
+- Hafsah Hamidah
 
 ## Lisensi
 [MIT License](https://github.com/codewara/TugasBesar-Kalkulus?tab=MIT-1-ov-file)
